@@ -3,17 +3,22 @@ import CBubble from "./CBubble";
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-
+import SockJS from "sockjs-client";
+import { Client } from "@stomp/stompjs";
 const CMessage = ({ ...others }) => {
 
     const [contacts, setContacts] = useState([]);
     const [receiver, setReceiver] = useState('');
+    const [receiverId, setReceiverId] = useState();
     const [messages, setMessages] = useState([]);
+    const [messageToSend, setMessageToSend] = useState('');
+    const[stompClient, setStompClient] = useState(null);
 
     const handleMessages = async (userId, receiver_name) => {
         console.log(userId);
         console.log(receiver_name);
         setReceiver(receiver_name.username);
+        setReceiverId(userId.idOwner);
 
         const authenticatedUser = Cookies.get('userId');
         try {
@@ -25,7 +30,68 @@ const CMessage = ({ ...others }) => {
         }
     }
 
+    const handleMessageChange = (event) => 
+    {
+        setMessageToSend(event.target.value);
+    }
 
+    const sendMessage = async () => {
+        if(messageToSend !== ''){
+            const message = {
+                idSender: parseInt(Cookies.get('userId')),
+                idReceiver: receiverId,
+                body: messageToSend,
+            };
+            try {
+                const response = await axios.post('http://localhost:8080/api/message', message);
+                console.log(response.data);
+                setMessages((prevMessages) => [...prevMessages, response.data]);
+                setMessageToSend('');
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
+        }
+    }
+
+    useEffect(() =>{
+        const socket = new SockJS('http://localhost:8080/websocket');
+        const client = new Client({
+            webSocketFactory: () => socket,
+            debug: (str) => console.log(str),
+            reconnectDelay: 5000,
+            heartbeatIncoming: 4000,
+            heartbeatOutgoing: 4000,
+            onConnect: () => {
+                console.log('Connected');
+                setStompClient(client);
+            },
+            onDisconnect: () => {
+                console.log('Disconnected');
+            }
+        });
+
+        client.activate();
+
+        return () => {
+            client.deactivate();
+        }
+    }, []);
+
+    useEffect(() => {
+        console.log(receiverId);
+
+        if(stompClient){
+            stompClient.subscribe('/topic/messages', (msg) => {
+                const message = JSON.parse(msg.body);
+                console.log(message);
+                console.log(receiverId);
+
+                if(parseInt(Cookies.get('userId')) === message.idReceiver && receiverId === message.idSender)
+            
+                    setMessages((prevMessages) => [...prevMessages, message]);
+            });
+        }
+    },[stompClient, receiverId]);
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -98,9 +164,9 @@ const CMessage = ({ ...others }) => {
                                 <div className="messaging__footer">
                                     <form className="form">
                                         <div className="input-group">
-                                            <input type="text" className="form-control mr-4" placeholder="Your Message"></input>
+                                            <input type="text" className="form-control mr-4" placeholder="Your Message" onChange={handleMessageChange}></input>
                                             <div className="input-group-append">
-                                                <button className="btn btn-primary" type="submit">Send <i className="fa fa-send ml-3"></i></button>
+                                                <button className="btn btn-primary" type="button" onClick={sendMessage}>Send <i className="fa fa-send ml-3"></i></button>
                                             </div>
                                         </div>
                                     </form>
