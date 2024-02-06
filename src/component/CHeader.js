@@ -1,5 +1,21 @@
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 const CHeader = ({ ...others }) => {
+    const [cookiePresent, setCookiePresent] = useState(false);
+
+    useEffect(() => {
+        const cookieExists = Cookies.get('userId');
+        if(cookieExists)
+            setCookiePresent(true);
+    }, []);
+
+    const handleLogOut = () => {
+        console.log("Logging out");
+        Cookies.remove('userId');
+        Cookies.remove('username');
+        Cookies.remove('email');
+    }
     return(
         <>
             <header className="hero has-map">
@@ -18,15 +34,24 @@ const CHeader = ({ ...others }) => {
                                         <li className="nav-item">
                                             <a className="nav-link" href="/">Home</a>
                                         </li>
+                                        {cookiePresent ? (
+                                            <>
+                                                <li className="nav-item">
+                                                    <a className="nav-link" href="/profile">Profile</a>
+                                                </li>
+
+                                                <li className="nav-item">
+                                                    <a className="nav-link" href="/message">Chatbox</a>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <a href="/" className="btn btn-primary text-caps btn-rounded btn-framed" onClick={handleLogOut}>Log Out</a>
+                                                </li>
+                                            </>
+                                        ) : (
                                         <li className="nav-item">
-                                            <a className="nav-link" href="/profile">Profile</a>
+                                            <a href="/login" className="btn btn-primary text-caps btn-rounded btn-framed">Log In</a>
                                         </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="/message">Chatbox</a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a href="submit.html" className="btn btn-primary text-caps btn-rounded btn-framed">Log In</a>
-                                        </li>
+                                    )}
                                     </ul>
                                 </div>
                             </nav>
