@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
 const CLogin = ({ ...others }) => {
@@ -19,6 +21,27 @@ const CLogin = ({ ...others }) => {
     const handleLogin = async () => {
         console.log('Email: ', email);
         console.log('Password: ', password);
+       
+        try {
+            const response = await axios.post('http://localhost:8080/api/login', {
+              email: email,
+              pwd: password
+            });
+      
+            if (response.status === 200) {
+              // Store user information in cookies
+              Cookies.set('userId', response.data.idOwner);
+              Cookies.set('username', response.data.name);
+              Cookies.set('email', response.data.email);
+              console.log('Login successful', response.data);
+      
+              navigate('/');
+            }
+            // Redirect or perform other actions after successful login
+          } catch (error) {
+            // Handle login error
+            console.error('Login failed');
+          }
     };
 
     return (
