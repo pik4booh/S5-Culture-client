@@ -1,11 +1,11 @@
 
-const CContact = ({ ...others }) => {
+const CContact = ({username}) => {
     return(
         <li>
             <a href="/" className="messaging__person">
                 <figure className="messaging__image-item" data-background-image="assets/img/image-01.jpg"></figure>
                 <figure className="content">
-                    <h5>Jane Brown</h5>
+                    <h5>{username}</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut</p>
                     <small>24 Hour Ago</small>
                 </figure>

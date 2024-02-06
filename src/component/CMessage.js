@@ -22,7 +22,7 @@ const CMessage = ({ ...others }) => {
                                 </div>
                                 <div className="messaging__content">
                                     <ul className="messaging__persons-list">
-                                        <CContact></CContact>
+                                        <CContact username={"Test"}></CContact>
                                     </ul>
                                 </div>
                             </div>
