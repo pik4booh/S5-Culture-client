@@ -1,8 +1,14 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 
-const CContact = ({username}) => {
+const CContact = ({username, idOwner, func}) => {
+    const handleFunc = () => {
+        const id = {idOwner};
+        const receiver_name = {username};
+        func(id, receiver_name);
+    }
     return(
         <li>
-            <a href="/" className="messaging__person">
+            <a href="#" className="messaging__person" onClick={handleFunc}>
                 <figure className="messaging__image-item" data-background-image="assets/img/image-01.jpg"></figure>
                 <figure className="content">
                     <h5>{username}</h5>

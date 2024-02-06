@@ -1,7 +1,43 @@
 import CContact from "./CContact";
 import CBubble from "./CBubble";
+import axios from 'axios';
+import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 
 const CMessage = ({ ...others }) => {
+
+    const [contacts, setContacts] = useState([]);
+    const [receiver, setReceiver] = useState('');
+    const [messages, setMessages] = useState([]);
+
+    const handleMessages = async (userId, receiver_name) => {
+        console.log(userId);
+        console.log(receiver_name);
+        setReceiver(receiver_name.username);
+
+        const authenticatedUser = Cookies.get('userId');
+        try {
+            const response = await axios.get('http://localhost:8080/api/messages?p1='+authenticatedUser+'&p2='+userId.idOwner); // Replace '/api/data' with your backend endpoint
+            console.log(response.data);
+            setMessages(response.data);
+        } catch (error) {
+            console.error('Error fetching message data:', error);
+        }
+    }
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('http://localhost:8080/api/owners'); // Replace '/api/data' with your backend endpoint
+            setContacts(response.data);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        fetchData();
+      }, []); 
     return (
         <>
         <section className="content">
@@ -21,9 +57,13 @@ const CMessage = ({ ...others }) => {
                                     </ul>
                                 </div>
                                 <div className="messaging__content">
-                                    <ul className="messaging__persons-list">
-                                        <CContact username={"Test"}></CContact>
-                                    </ul>
+                                    {contacts.map(contact => (
+
+                                    parseInt(Cookies.get('userId')) !== contact.idOwner ? (
+                                        <ul className="messaging__persons-list" key={contact.idOwner}>
+                                            <CContact username={contact.name} idOwner={contact.idOwner} func={(userId, receiver_name) => handleMessages(userId, receiver_name)}></CContact>
+                                        </ul>) : (null)
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -34,7 +74,7 @@ const CMessage = ({ ...others }) => {
                             <div id="messaging__chat-window" className="messaging__box">
                                 <div className="messaging__header">
                                     <div className="float-left flex-row-reverse messaging__person">
-                                        <h5 className="font-weight-bold">Rosina Warner</h5>
+                                        <h5 className="font-weight-bold">{receiver}</h5>
                                         <figure className="mr-4 messaging__image-person" data-background-image="assets/img/author-02.jpg"></figure>
                                     </div>
                                     <div className="float-right messaging__person">
@@ -44,46 +84,15 @@ const CMessage = ({ ...others }) => {
                                 </div>
                                 <div className="messaging__content" data-background-color="rgba(0,0,0,.05)">
                                     <div className="messaging__main-chat">
-                                        <div className="messaging__main-chat__bubble">
-                                            <p>
-                                                Curabitur vel venenatis sem. Fusce suscipit pharetra nisl, sit amet blandit sem sollicitudin ac.
-                                                <small>24 hour ago</small>
-                                            </p>
-                                        </div>
+                                    
+                                        {messages.map(message => (
+                                            
+                                            parseInt(Cookies.get('userId')) === message.idSender ? (
+                                            <CBubble message={message.body} isUser={true}></CBubble>) : (
+                                            <CBubble message={message.body}></CBubble>
+                                            )
 
-                                        <CBubble message="Vivamus laoreet nisl a odio commodo varius. Donec arcu mauris, molestie a euismod at,
-                                        mattis eu arcu. Cras volutpat, velit sit amet cursus molestie, ex ipsum sagittis urna,
-                                        vitae auctor augue erat eget justo. Sed dignissim lacus risus, ut blandit nunc volutpat
-                                        quis. Fusce porta semper nisi, quis lobortis nulla ultricies ac."></CBubble>
-
-                                        <div className="messaging__main-chat__bubble user">
-                                            <p>
-                                                Cras volutpat, velit sit amet cursus molestie, ex ipsum sagittis urna,
-                                                vitae auctor augue erat eget justo. Sed dignissim lacus risus, ut blandit nunc
-                                                <small>24 hour ago</small>
-                                            </p>
-                                        </div>
-                                        <div className="messaging__main-chat__bubble user">
-                                            <p>
-                                                Sed dignissim lacus risus, ut blandit nunc
-                                                <small>24 hour ago</small>
-                                            </p>
-                                        </div>
-                                        <div className="messaging__main-chat__bubble">
-                                            <p>
-                                                Donec consequat lobortis erat non tempus. Quisque id accumsan velit. Nullam mollis bibendum ex.
-                                                Integer egestas nisi nulla, ut tempus mi euismod in
-                                                <small>24 hour ago</small>
-                                            </p>
-                                        </div>
-                                        <div className="messaging__main-chat__bubble user">
-                                            <p>
-                                                Quisque id accumsan velit. Nullam mollis bibendum ex.
-                                                Integer egestas nisi nulla, ut tempus mi euismod in
-                                                <small>24 hour ago</small>
-                                            </p>
-                                        </div>
-                                        <CBubble message="hehe bisou bisou" isUser={false} ></CBubble>
+                                        ))}
                                     </div>
                                 </div>
                                 <div className="messaging__footer">
