@@ -30,7 +30,7 @@ const CLogin = ({ ...others }) => {
                             </form>
                             <hr></hr>
                             <p>
-                                Troubles with signing? <a href="#" className="link">Click here.</a>
+                                Troubles with signing? <a href="/" className="link">Click here.</a>
                             </p>
                         </div>
                     </div>

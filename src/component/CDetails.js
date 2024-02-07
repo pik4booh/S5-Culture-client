@@ -1,6 +1,24 @@
 import CLittleCard from './CLittleCard';
+import { useLocation } from 'react-router-dom';
 
 const CDetails = ({ ...others }) => {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const encodedObject = queryParams.get('data');
+
+    // Decode and parse the object
+    const field = JSON.parse(decodeURIComponent(encodedObject));
+
+    // field.plots.forEach(plot => {
+    //     // Accessing the `groundType` and `area` properties of each element
+    //     const groundType = plot.groundType;
+    //     const area = plot.area;
+    
+    //     // Displaying the `groundType` and `area` of each element
+    //     console.log("Ground Type:", groundType);
+    //     console.log("Area:", area);
+    // });
+
     return(
         <>
             <section className="content">
@@ -42,11 +60,7 @@ const CDetails = ({ ...others }) => {
                                 <section>
                                     <h2>Description</h2>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tincidunt arcu, sit
-                                        amet fermentum sem. className aptent taciti sociosqu ad litora torquent per conubia nostra,
-                                        per inceptos himenaeos. Vestibulum tincidunt, sapien sagittis sollicitudin dapibus,
-                                        risus mi euismod elit, in dictum justo lacus sit amet dui. Sed faucibus vitae nisl
-                                        at dignissim.
+                                        {field.description}
                                     </p>
                                 </section>
                                 <section>
@@ -55,9 +69,9 @@ const CDetails = ({ ...others }) => {
                                             <h2>Details</h2>
                                             <dl>
                                                 <dt>Location</dt>
-                                                <dd>Hawaii</dd>
+                                                <dd>{field.location}</dd>
                                                 <dt>Area</dt>
-                                                <dd>590 000 Km</dd>
+                                                <dd>{field.area}</dd>
                                                 <dt>Longitude</dt>
                                                 <dd>1234567890</dd>
                                                 <dt>Latitude</dt>
@@ -92,9 +106,9 @@ const CDetails = ({ ...others }) => {
                                                         </div>
                                                     </div>
                                                     <div className="author-description">
-                                                        <h3>Jane Doe</h3>
+                                                        <h3>{field.owner.name}</h3>
                                                         <div className="rating" data-rating="4"></div>
-                                                        <a href="seller-detail-1.html" className="text-uppercase">Show My Listings
+                                                        <a className="text-uppercase">Show My Listings
                                                             <span className="appendix">(12)</span>
                                                         </a>
                                                     </div>
@@ -104,14 +118,14 @@ const CDetails = ({ ...others }) => {
                                                     <dt>Phone</dt>
                                                     <dd>830-247-0930</dd>
                                                     <dt>Email</dt>
-                                                    <dd>hijane@example.com</dd>
+                                                    <dd>{field.owner.email}</dd>
                                                 </dl>
                                             </div>
                                             <div className="col-md-7">
                                                 <form className="form email">
                                                     <div className="form-group">
                                                         <label htmlFor="message" className="col-form-label">Message</label>
-                                                        <textarea name="message" id="message" className="form-control" rows="4" placeholder="Hi there! I am interested in your offer ID 53951. Please give me more details."></textarea>
+                                                        <textarea name="message" id="message" className="form-control" rows="4" placeholder="Hi there! If you're interested in my field. Please give me more details."></textarea>
                                                     </div>
                                                     <button type="submit" className="btn btn-primary">Send</button>
                                                 </form>
@@ -124,9 +138,9 @@ const CDetails = ({ ...others }) => {
                                 <aside className="sidebar">
                                     <section>
                                         <h2>Similar Ads</h2>
-                                        <CLittleCard></CLittleCard>
-                                        <CLittleCard></CLittleCard>
-                                        <CLittleCard></CLittleCard>
+                                        {field.plots.map((plot) => (
+                                            <CLittleCard location={field.location} owner={field.owner.name} plot={plot}></CLittleCard>
+                                        ))}
                                     </section>
                                 </aside>
                             </div>
