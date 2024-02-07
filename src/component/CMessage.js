@@ -9,16 +9,17 @@ const CMessage = ({ ...others }) => {
 
     const [contacts, setContacts] = useState([]);
     const [receiver, setReceiver] = useState('');
-    const [receiverId, setReceiverId] = useState();
+    const [receiverId, setReceiverId] = useState(null);
     const [messages, setMessages] = useState([]);
     const [messageToSend, setMessageToSend] = useState('');
     const[stompClient, setStompClient] = useState(null);
 
-    const handleMessages = async (userId, receiver_name) => {
+    const handleMessages = async(userId, receiver_name) => {
         console.log(userId);
         console.log(receiver_name);
-        setReceiver(receiver_name.username);
         setReceiverId(userId.idOwner);
+
+        setReceiver(receiver_name.username);
 
         const authenticatedUser = Cookies.get('userId');
         try {
@@ -75,9 +76,10 @@ const CMessage = ({ ...others }) => {
         return () => {
             client.deactivate();
         }
-    }, []);
+    }, [receiverId]);
 
     useEffect(() => {
+
         console.log(receiverId);
 
         if(stompClient){
@@ -87,11 +89,14 @@ const CMessage = ({ ...others }) => {
                 console.log(receiverId);
 
                 if(parseInt(Cookies.get('userId')) === message.idReceiver && receiverId === message.idSender)
-            
+                {
+                    console.log("Marina rty ah");
+                    console.log(receiverId + "ito le receiver amzao");
                     setMessages((prevMessages) => [...prevMessages, message]);
+                }
             });
         }
-    },[stompClient, receiverId]);
+    },[receiverId, stompClient]);
     useEffect(() => {
         const fetchData = async () => {
           try {
