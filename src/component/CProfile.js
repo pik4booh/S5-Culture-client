@@ -102,7 +102,7 @@ const CProfile = ({ ...others }) => {
                                     <div className="items grid grid-xl-3-items grid-lg-3-items grid-md-2-items">
                                         {fields !== null ? (
                                             fields.map(field => (
-                                                <CCard></CCard>
+                                                <CCard field={field}></CCard>
                                             ))
                                         ) : (null)
 
