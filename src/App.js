@@ -37,7 +37,7 @@ function App() {
           <Route path="/" exact element={<CLayout children={<CCulture />} />} />
           <Route path="/login" exact element={<CLogin />} />
           <Route path="/details" element={<CLayout children={<CDetails />} />} />
-          <Route path="/profile" element={<CLayout children={<CProfile />} />} />
+          <Route path="/profile/:id" element={<CLayout children={<CProfile />} />} />
           <Route path="/message" element={<CLayout children={<CMessage />} />} />
         </Routes>
     </Router>

@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom";
 
 const CHeader = ({ ...others }) => {
     const [cookiePresent, setCookiePresent] = useState(false);
+    const [authenticatedUser, setAuthenticatedUser] = useState(Cookies.get('userId'));
 
     useEffect(() => {
         const cookieExists = Cookies.get('userId');
@@ -37,7 +39,7 @@ const CHeader = ({ ...others }) => {
                                         {cookiePresent ? (
                                             <>
                                                 <li className="nav-item">
-                                                    <a className="nav-link" href="/profile">Profile</a>
+                                                    <Link className="nav-link" to={`/profile/${authenticatedUser}`}>Profile</Link>
                                                 </li>
 
                                                 <li className="nav-item">

@@ -1,6 +1,39 @@
+import { useState, useEffect } from "react";
 import CCard from "./CCard";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+
+
 
 const CProfile = ({ ...others }) => {
+    const [user, setUser] = useState({user:null});
+    const [fields, setField] = useState([]);
+    const { id } = useParams();
+
+    console.log(id+"qdsqkjdlsqjdlsq");
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('http://localhost:8080/api/owner?id='+id); // Replace '/api/data' with your backend endpoint
+            setUser(response.data);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+
+        const fetchField = async () => {
+            try {
+              const response = await axios.get('http://localhost:8080/api/owner/fields?idUser='+id); // Replace '/api/data' with your backend endpoint
+              console.log(response.data);
+              setField(response.data);
+            } catch (error) {
+              console.error('Error fetching data:', error);
+            }
+          };
+    
+        fetchData();
+        fetchField();
+      }, [id, user.id]); 
     return (
         <>
             <section className="content">
@@ -17,7 +50,7 @@ const CProfile = ({ ...others }) => {
                                     </div>
                                     <div className="author-description">
                                         <div className="section-title">
-                                            <h2>Judy Ivey</h2>
+                                            <h2>{user.name}</h2>
                                             <h4 className="location">
                                                 <a href="/">Manhattan, NY</a>
                                             </h4>
@@ -35,7 +68,7 @@ const CProfile = ({ ...others }) => {
                                                 </li>
                                                 <li>
                                                     <figure>Email</figure>
-                                                    <aside><a href="/">hello@example.com</a></aside>
+                                                    <aside><a href="/">{user.email}</a></aside>
                                                 </li>
                                             </ul>
                                         </div>
@@ -67,7 +100,13 @@ const CProfile = ({ ...others }) => {
                                 </div>
                                 <div className="read-more" data-read-more-link-more="Show More" data-read-more-link-less="Show Less">
                                     <div className="items grid grid-xl-3-items grid-lg-3-items grid-md-2-items">
-                                        <CCard></CCard>
+                                        {fields !== null ? (
+                                            fields.map(field => (
+                                                <CCard></CCard>
+                                            ))
+                                        ) : (null)
+
+                                        }
                                     </div>
                                 </div>
                             </section>
