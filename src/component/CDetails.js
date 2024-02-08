@@ -1,3 +1,7 @@
+import { useState, useEffect } from 'react';
+
+import axios from 'axios';
+
 import CLittleCard from './CLittleCard';
 import { useLocation } from 'react-router-dom';
 
@@ -8,6 +12,21 @@ const CDetails = ({ ...others }) => {
 
     // Decode and parse the object
     const field = JSON.parse(decodeURIComponent(encodedObject));
+
+    const [picture, setPicture] = useState({picture:null});
+
+    useEffect(() => {
+        // Fetch data from the database using Axios
+        axios
+            .get('http://localhost:8080/api/picture?hashcode='+field.hashcode)
+            .then((response) => {
+                // Assuming your data is an array of objects with id and name properties
+                setPicture(response.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching pictures: ', error);
+            });
+        }, []);
 
     // field.plots.forEach(plot => {
     //     // Accessing the `groundType` and `area` properties of each element
@@ -21,7 +40,7 @@ const CDetails = ({ ...others }) => {
 
     return(
         <>
-            <section className="content">
+            <section className="content" id={field.idField} >
                 <section className="block">
                     <div className="container">
                         <div className="row">
@@ -29,31 +48,11 @@ const CDetails = ({ ...others }) => {
                                 <section>
                                     <h2>Details</h2>
                                     <div className="gallery-carousel owl-carousel">
-                                        <img src="assets/img/image-20.jpg" alt="field1" data-hash="1"></img>
-                                        <img src="assets/img/image-01.jpg" alt="field2" data-hash="2"></img>
-                                        <img src="assets/img/image-21.jpg" alt="field3" data-hash="3"></img>
-                                        <img src="assets/img/image-22.jpg" alt="field4" data-hash="4"></img>
-                                        <img src="assets/img/image-23.jpg" alt="field5" data-hash="5"></img>
-                                        <img src="assets/img/image-14.jpg" alt="field6" data-hash="6"></img>
+                                        <img src={picture.picBase64} alt="field1" data-hash="1"></img>
                                     </div>
                                     <div className="gallery-carousel-thumbs owl-carousel">
-                                        <a href="contact.html1" className="owl-thumb active-thumb background-image">
-                                            <img src="assets/img/image-20.jpg" alt=""></img>
-                                        </a>
-                                        <a href="contact.html2" className="owl-thumb background-image">
-                                            <img src="assets/img/image-01.jpg" alt=""></img>
-                                        </a>
-                                        <a href="contact.html3" className="owl-thumb background-image">
-                                            <img src="assets/img/image-21.jpg" alt=""></img>
-                                        </a>
-                                        <a href="contact.html4" className="owl-thumb background-image">
-                                            <img src="assets/img/image-22.jpg" alt=""></img>
-                                        </a>
-                                        <a href="contact.html5" className="owl-thumb background-image">
-                                            <img src="assets/img/image-23.jpg" alt=""></img>
-                                        </a>
-                                        <a href="contact.html6" className="owl-thumb background-image">
-                                            <img src="assets/img/image-14.jpg" alt=""></img>
+                                        <a className="owl-thumb active-thumb background-image">
+                                            <img rc={picture.picBase64} alt=""></img>
                                         </a>
                                     </div>
                                 </section>
@@ -139,7 +138,7 @@ const CDetails = ({ ...others }) => {
                                     <section>
                                         <h2>List Plots</h2>
                                         {field.plots.map((plot) => (
-                                            <CLittleCard location={field.location} owner={field.owner.name} plot={plot}></CLittleCard>
+                                            <CLittleCard key={field.idField} location={field.location} owner={field.owner.name} plot={plot}></CLittleCard>
                                         ))}
                                     </section>
                                 </aside>

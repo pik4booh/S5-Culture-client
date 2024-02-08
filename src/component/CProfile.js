@@ -10,7 +10,6 @@ const CProfile = ({ ...others }) => {
     const [fields, setField] = useState([]);
     const { id } = useParams();
 
-    console.log(id+"qdsqkjdlsqjdlsq");
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -45,15 +44,15 @@ const CProfile = ({ ...others }) => {
                                 <div className="author big">
                                     <div className="author-image">
                                         <div className="background-image">
-                                            <img src="assets/img/author-09.jpg" alt=""></img>
+                                            <img src="user.png" alt=""></img>
                                         </div>
                                     </div>
                                     <div className="author-description">
                                         <div className="section-title">
                                             <h2>{user.name}</h2>
-                                            <h4 className="location">
-                                                <a href="/">Manhattan, NY</a>
-                                            </h4>
+                                            {/* <h4 className="location">
+                                                <a>Manhattan, NY</a>
+                                            </h4> */}
                                             <figure>
                                                 <div className="float-left">
                                                     <div className="rating" data-rating="4"></div>

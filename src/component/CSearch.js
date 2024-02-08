@@ -1,5 +1,5 @@
 
-const CSearch = ({ ...others }) => {
+const CSearch = ({ func }) => {
     return(
         <>
             <div className="main-search-form">
