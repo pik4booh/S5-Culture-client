@@ -16,7 +16,7 @@ const CExample = ({ plot,location,owner }) => {
                         {/* <h4 className="location">
                             <a href="contact.html">{location}</a>
                         </h4> */}
-                        <div className="price">{plot.area} m2</div>
+                        <div className="price">{plot.area} m²</div>
                         <div className="meta">
                             <figure>
                                 <i className="fa fa-user"></i>{owner}

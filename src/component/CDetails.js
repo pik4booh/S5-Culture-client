@@ -137,7 +137,7 @@ const CDetails = ({ ...others }) => {
                             <div className="col-md-3">
                                 <aside className="sidebar">
                                     <section>
-                                        <h2>Similar Ads</h2>
+                                        <h2>List Plots</h2>
                                         {field.plots.map((plot) => (
                                             <CLittleCard location={field.location} owner={field.owner.name} plot={plot}></CLittleCard>
                                         ))}
