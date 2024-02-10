@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import CLittleCard from './CLittleCard';
 import { useLocation } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const CDetails = ({ ...others }) => {
     const location = useLocation();
@@ -51,9 +52,9 @@ const CDetails = ({ ...others }) => {
                                         <img src={picture.picBase64} alt="field1" data-hash="1"></img>
                                     </div>
                                     <div className="gallery-carousel-thumbs owl-carousel">
-                                        <a className="owl-thumb active-thumb background-image">
+                                        <Link className="owl-thumb active-thumb background-image">
                                             <img rc={picture.picBase64} alt=""></img>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </section>
                                 <section>
@@ -107,9 +108,9 @@ const CDetails = ({ ...others }) => {
                                                     <div className="author-description">
                                                         <h3>{field.owner.name}</h3>
                                                         <div className="rating" data-rating="4"></div>
-                                                        <a className="text-uppercase">Show My Listings
+                                                        <Link className="text-uppercase">Show My Listings
                                                             <span className="appendix">(12)</span>
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                 </div>
                                                 <hr></hr>

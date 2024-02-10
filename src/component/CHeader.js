@@ -25,16 +25,16 @@ const [authenticatedUser, setAuthenticatedUser] = useState(Cookies.get('userId')
                     <div className="main-navigation">
                         <div className="container">
                             <nav className="navbar navbar-expand-lg navbar-light justify-content-between">
-                                <a className="navbar-brand" href="/">
+                                <Link className="navbar-brand" href="/">
                                     <img src="logo.png" alt="" width={164} height={66}></img>
-                                </a>
+                                </Link>
                                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="single-listing-1.htmlnavbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
                                 <div className="collapse navbar-collapse" id="navbar">
                                     <ul className="navbar-nav">
                                         <li className="nav-item">
-                                            <a className="nav-link" href="/">Home</a>
+                                            <Link className="nav-link" href="/">Home</Link>
                                         </li>
                                         {cookiePresent ? (
                                             <>
@@ -43,10 +43,10 @@ const [authenticatedUser, setAuthenticatedUser] = useState(Cookies.get('userId')
                                                 </li>
 
                                                 <li className="nav-item">
-                                                    <a className="nav-link" href="/message">Chatbox</a>
+                                                    <Link className="nav-link" href="/message">Chatbox</Link>
                                                 </li>
                                                 <li className="nav-item">
-                                                    <a href="/" className="btn btn-primary text-caps btn-rounded btn-framed" onClick={handleLogOut}>Log Out</a>
+                                                    <Link href="/" className="btn btn-primary text-caps btn-rounded btn-framed" onClick={handleLogOut}>Log Out</Link>
                                                 </li>
                                             </>
                                         ) : (

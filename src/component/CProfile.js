@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import CCard from "./CCard";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
@@ -67,7 +68,7 @@ const CProfile = ({ ...others }) => {
                                                 </li>
                                                 <li>
                                                     <figure>Email</figure>
-                                                    <aside><a href="/">{user.email}</a></aside>
+                                                    <aside><Link to="/">{user.email}</Link></aside>
                                                 </li>
                                             </ul>
                                         </div>

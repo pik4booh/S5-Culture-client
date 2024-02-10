@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
-import CSearch from "./CSearch";
 import CCard from "./CCard";
 
 const CCulture = ({ ...others }) => {

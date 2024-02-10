@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { Link } from "react-router-dom";
+
 
 
 const CLogin = ({ ...others }) => {
@@ -47,9 +49,9 @@ const CLogin = ({ ...others }) => {
     return (
         <>
         <nav className="navbar navbar-expand-lg navbar-light justify-content-between center">
-            <a className="navbar-brand" href="/">
+            <Link className="navbar-brand" href="/">
                 <img src="logo.png" alt="" width={164} height={66}></img>
-            </a>
+            </Link>
         </nav>
         <section className="content">
             <section className="block">

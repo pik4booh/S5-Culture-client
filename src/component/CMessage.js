@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
+import { Link } from "react-router-dom";
+
 const CMessage = ({ ...others }) => {
 
     const [contacts, setContacts] = useState([]);
@@ -123,7 +125,7 @@ const CMessage = ({ ...others }) => {
                                 <div className="messaging__header">
                                     <ul className="nav nav-pills">
                                         <li className="nav-item">
-                                            <a className="nav-link active" href="/">All Contact</a>
+                                            <Link className="nav-link active" href="/">All Contact</Link>
                                         </li>
                                     </ul>
                                 </div>

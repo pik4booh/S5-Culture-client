@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-
+import { Link } from "react-router-dom";
 const CContact = ({username, idOwner, func}) => {
     const handleFunc = () => {
         const id = {idOwner};
@@ -8,7 +8,7 @@ const CContact = ({username, idOwner, func}) => {
     }
     return(
         <li>
-            <a href="#" className="messaging__person" onClick={handleFunc}>
+            <Link href="#" className="messaging__person" onClick={handleFunc}>
                 <img className="messaging__image-item" src="user.png"></img>
                 <figure className="content">
                     <h5>{username}</h5>
@@ -16,7 +16,7 @@ const CContact = ({username, idOwner, func}) => {
                     <small>24 Hour Ago</small>
                 </figure>
                 {/* <figure className="messaging__image-person" data-background-image="assets/img/author-01.jpg"></figure> */}
-            </a>
+            </Link>
         </li>
     );
 }

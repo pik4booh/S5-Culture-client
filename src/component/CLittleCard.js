@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const CExample = ({ plot,location,owner }) => {
     return (
         <>
@@ -7,8 +8,8 @@ const CExample = ({ plot,location,owner }) => {
                     <div className="wrapper">
                         <div className="image">
                             <h3>
-                                <a className="tag category">PLOT</a>
-                                <a className="title">{plot.groundType.name}</a>
+                                <Link className="tag category">PLOT</Link>
+                                <Link className="title">{plot.groundType.name}</Link>
                                 {/* <span className="tag">Offer</span> */}
                             </h3>
                                 <img src="field.png" alt=""></img>
