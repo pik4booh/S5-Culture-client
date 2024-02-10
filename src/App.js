@@ -2,7 +2,6 @@
 import './App.css';
 
 import './assets/bootstrap/css/bootstrap.css';
-import './assets/bootstrap/js/bootstrap';
 
 import './assets/fonts/font-awesome.css';
 import './assets/css/selectize.css';
@@ -16,10 +15,6 @@ import $ from 'jquery';
 // Import Popper.js
 import Popper from 'popper.js';
 
-// import './assets/js/custom';
-// import './assets/js/owl.carousel.min';
-// import './assets/js/icheck.min';
-import './assets/js/selectize.min';
 
 import CLayout from './component/CLayout';
 import CDetails from './component/CDetails';
