@@ -34,7 +34,7 @@ const [authenticatedUser, setAuthenticatedUser] = useState(Cookies.get('userId')
                                 <div className="collapse navbar-collapse" id="navbar">
                                     <ul className="navbar-nav">
                                         <li className="nav-item">
-                                            <Link className="nav-link" href="/">Home</Link>
+                                            <Link className="nav-link" to="/">Home</Link>
                                         </li>
                                         {cookiePresent ? (
                                             <>
@@ -43,7 +43,7 @@ const [authenticatedUser, setAuthenticatedUser] = useState(Cookies.get('userId')
                                                 </li>
 
                                                 <li className="nav-item">
-                                                    <Link className="nav-link" href="/message">Chatbox</Link>
+                                                    <Link className="nav-link" to="/message">Chatbox</Link>
                                                 </li>
                                                 <li className="nav-item">
                                                     <Link href="/" className="btn btn-primary text-caps btn-rounded btn-framed" onClick={handleLogOut}>Log Out</Link>
