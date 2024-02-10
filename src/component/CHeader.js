@@ -3,8 +3,8 @@ import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
 const CHeader = ({ ...others }) => {
-    const [cookiePresent, setCookiePresent] = useState(false);
-    const [authenticatedUser, setAuthenticatedUser] = useState(Cookies.get('userId'));
+const [cookiePresent, setCookiePresent] = useState(false);
+const [authenticatedUser, setAuthenticatedUser] = useState(Cookies.get('userId'));
 
     useEffect(() => {
         const cookieExists = Cookies.get('userId');
