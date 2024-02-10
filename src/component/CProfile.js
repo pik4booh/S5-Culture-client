@@ -13,7 +13,7 @@ const CProfile = ({ ...others }) => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('http://localhost:8080/api/owner?id='+id); // Replace '/api/data' with your backend endpoint
+            const response = await axios.get('https://d3ds3c.me/api/owner?id='+id); // Replace '/api/data' with your backend endpoint
             setUser(response.data);
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -22,7 +22,7 @@ const CProfile = ({ ...others }) => {
 
         const fetchField = async () => {
             try {
-              const response = await axios.get('http://localhost:8080/api/owner/fields?idUser='+id); // Replace '/api/data' with your backend endpoint
+              const response = await axios.get('https://d3ds3c.me/api/owner/fields?idUser='+id); // Replace '/api/data' with your backend endpoint
               console.log(response.data);
               setField(response.data);
             } catch (error) {

@@ -23,7 +23,7 @@ const CLogin = ({ ...others }) => {
         console.log('Password: ', password);
        
         try {
-            const response = await axios.post('http://localhost:8080/api/login', {
+            const response = await axios.post('https://d3ds3c.me/api/login', {
               email: email,
               pwd: password
             });

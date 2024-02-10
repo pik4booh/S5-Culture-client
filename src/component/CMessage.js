@@ -23,7 +23,7 @@ const CMessage = ({ ...others }) => {
 
         const authenticatedUser = Cookies.get('userId');
         try {
-            const response = await axios.get('http://localhost:8080/api/messages?p1='+authenticatedUser+'&p2='+userId.idOwner); // Replace '/api/data' with your backend endpoint
+            const response = await axios.get('https://d3ds3c.me/api/messages?p1='+authenticatedUser+'&p2='+userId.idOwner); // Replace '/api/data' with your backend endpoint
             console.log(response.data);
             setMessages(response.data);
         } catch (error) {
@@ -44,7 +44,7 @@ const CMessage = ({ ...others }) => {
                 body: messageToSend,
             };
             try {
-                const response = await axios.post('http://localhost:8080/api/message', message);
+                const response = await axios.post('https://d3ds3c.me/api/message', message);
                 console.log(response.data);
                 setMessages((prevMessages) => [...prevMessages, response.data]);
                 setMessageToSend('');
@@ -55,7 +55,7 @@ const CMessage = ({ ...others }) => {
     }
 
     useEffect(() =>{
-        const socket = new SockJS('http://localhost:8080/websocket');
+        const socket = new SockJS('https://d3ds3c.me/websocket');
         const client = new Client({
             webSocketFactory: () => socket,
             debug: (str) => console.log(str),
@@ -100,7 +100,7 @@ const CMessage = ({ ...others }) => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('http://localhost:8080/api/owners'); // Replace '/api/data' with your backend endpoint
+            const response = await axios.get('https://d3ds3c.me/api/owners'); // Replace '/api/data' with your backend endpoint
             setContacts(response.data);
           } catch (error) {
             console.error('Error fetching data:', error);

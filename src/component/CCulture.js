@@ -13,7 +13,7 @@ const CCulture = ({ ...others }) => {
     useEffect(() => {
         // Fetch data from the database using Axios
         axios
-            .get('http://localhost:8080/api/fields')
+            .get('https://d3ds3c.me/api/fields')
             .then((response) => {
                 // Assuming your data is an array of objects with id and name properties
                 console.log(response.data);
