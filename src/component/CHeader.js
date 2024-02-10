@@ -51,7 +51,7 @@ const [authenticatedUser, setAuthenticatedUser] = useState(Cookies.get('userId')
                                             </>
                                         ) : (
                                         <li className="nav-item">
-                                            <a href="/login" className="btn btn-primary text-caps btn-rounded btn-framed">Log In</a>
+                                            <Link to="/login" className="btn btn-primary text-caps btn-rounded btn-framed">Log In</Link>
                                         </li>
                                     )}
                                     </ul>
