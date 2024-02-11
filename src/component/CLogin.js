@@ -61,11 +61,11 @@ const CLogin = ({ ...others }) => {
                             <form className="form clearfix">
                                 <div className="form-group">
                                     <label htmlFor="email" className="col-form-label required">Email</label>
-                                    <input name="email" type="email" className="form-control" id="email" placeholder="Your Email" required onChange={handleEmailChange}></input>
+                                    <input name="email" type="email" className="form-control" id="email" placeholder="fy@gmail.com" required onChange={handleEmailChange}></input>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="password" className="col-form-label required">Password</label>
-                                    <input name="password" type="password" className="form-control" id="password" placeholder="Password" required onChange={handlePasswordChange}></input>
+                                    <input name="password" type="password" className="form-control" id="password" placeholder="fy123" required onChange={handlePasswordChange}></input>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-baseline">
                                     <label>
